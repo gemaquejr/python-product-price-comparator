@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comparação de Preços - {{ product.name }}</title>
+</head>
+<body>
+    <h1>Comparação de Preços para {{ product.name }}</h1>
+    <ul>
+        {% for price in prices %}
+            <li>{{ price.supermarket.name }} - R$ {{ price.price }} (Verificado em {{ price.date_checked }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'product_list' %}">Voltar à lista de produtos</a>
+</body>
+</html>

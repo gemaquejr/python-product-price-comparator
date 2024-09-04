@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Produtos</title>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <a href="{% url 'price_comparison' product.id %}">{{ product.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
