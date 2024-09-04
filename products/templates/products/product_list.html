@@ -5,49 +5,32 @@
 </head>
 <body>
     <h1>Lista de Produtos</h1>
-    <ul>
-        {% for product in products %}
-            <li>
-                <a href="{% url 'price_comparison' product.id %}">{{ product.name }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <h2>Adicionar Novo Produto</h2>
-    <form method="post" action="{% url 'add_product' %}">
-        {% csrf_token %}
-        <label for="name">Nome do Produto:</label>
-        <input type="text" id="name" name="name" required><br><br>
 
-        <label for="description">Descrição:</label>
-        <textarea id="description" name="description"></textarea><br><br>
-
-        <label for="category">Categoria:</label>
-        <input type="text" id="category" name="category" required><br><br>
-
-        <button type="submit">Adicionar Produto</button>
-    </form>
-
-    <h2>Adicionar Preço para um Produto</h2>
-    <form method="post" action="{% url 'add_price' %}">
-        {% csrf_token %}
-        <label for="product">Produto:</label>
-        <select id="product" name="product" required>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Comparar Preços</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for product in products %}
-                <option value="{{ product.id }}">{{ product.name }}</option>
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.description }}</td>
+                    <td><a href="{% url 'price_comparison' product.id %}">Comparar Preços</a></td>
+                </tr>
             {% endfor %}
-        </select><br><br>
+        </tbody>
+    </table>
 
-        <label for="supermarket">Supermercado:</label>
-        <select id="supermarket" name="supermarket" required>
-            {% for supermarket in supermarkets %}
-                <option value="{{ supermarket.id }}">{{ supermarket.name }}</option>
-            {% endfor %}
-        </select><br><br>
-
-        <label for="price">Preço:</label>
-        <input type="number" id="price" name="price" step="0.01" required><br><br>
-
-        <button type="submit">Adicionar Preço</button>
-    </form>
+    <div style="text-align: right; margin-top: 20px;">
+        <a href="{% url 'add_product_page' %}">
+            <button type="button">Cadastrar Novo Produto/Preço</button>
+        </a>
+    </div>
 </body>
 </html>

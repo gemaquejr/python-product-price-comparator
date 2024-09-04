@@ -4,8 +4,13 @@ from .models import Product, Price, Supermarket
 
 def product_list(request):
     products = Product.objects.all()
+    return render(request, 'products/product_list.html', {'products': products})
+
+
+def add_product_page(request):
+    products = Product.objects.all()
     supermarkets = Supermarket.objects.all()
-    return render(request, 'products/product_list.html', {'products': products, 'supermarkets': supermarkets})
+    return render(request, 'products/add_product.html', {'products': products, 'supermarkets': supermarkets})
 
 
 def price_comparison(request, product_id):
@@ -23,7 +28,7 @@ def add_product(request):
             Product.objects.create(name=name, description=description, category=category)
         return redirect('product_list')
     else:
-        return render(request, 'products/product_list.html')
+        return redirect('add_product_page')
 
 
 def add_price(request):
@@ -37,4 +42,4 @@ def add_price(request):
             Price.objects.create(product=product, supermarket=supermarket, price=price)
         return redirect('product_list')
     else:
-        return redirect('product_list')
+        return redirect('add_product_page')
