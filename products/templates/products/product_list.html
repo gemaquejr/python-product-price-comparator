@@ -12,5 +12,42 @@
             </li>
         {% endfor %}
     </ul>
+    <h2>Adicionar Novo Produto</h2>
+    <form method="post" action="{% url 'add_product' %}">
+        {% csrf_token %}
+        <label for="name">Nome do Produto:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="description">Descrição:</label>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <label for="category">Categoria:</label>
+        <input type="text" id="category" name="category" required><br><br>
+
+        <button type="submit">Adicionar Produto</button>
+    </form>
+
+    <h2>Adicionar Preço para um Produto</h2>
+    <form method="post" action="{% url 'add_price' %}">
+        {% csrf_token %}
+        <label for="product">Produto:</label>
+        <select id="product" name="product" required>
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="supermarket">Supermercado:</label>
+        <select id="supermarket" name="supermarket" required>
+            {% for supermarket in supermarkets %}
+                <option value="{{ supermarket.id }}">{{ supermarket.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="price">Preço:</label>
+        <input type="number" id="price" name="price" step="0.01" required><br><br>
+
+        <button type="submit">Adicionar Preço</button>
+    </form>
 </body>
 </html>
