@@ -3,12 +3,12 @@ from .models import Product, Price, Supermarket
 
 
 def product_list(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('category', 'name', 'description')
     return render(request, 'products/product_list.html', {'products': products})
 
 
 def add_product_page(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('category', 'name', 'description')
     supermarkets = Supermarket.objects.all()
     return render(request, 'products/add_product.html', {'products': products, 'supermarkets': supermarkets})
 
@@ -26,7 +26,7 @@ def add_product(request):
         category = request.POST.get('category')
         if name and category:
             Product.objects.create(name=name, description=description, category=category)
-        return redirect('product_list')
+        return redirect('add_product_page')
     else:
         return redirect('add_product_page')
 
