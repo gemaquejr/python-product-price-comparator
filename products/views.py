@@ -22,10 +22,11 @@ def price_comparison(request, product_id):
 def add_product(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        brand = request.POST.get('brand')
         description = request.POST.get('description')
         category = request.POST.get('category')
         if name and category:
-            Product.objects.create(name=name, description=description, category=category)
+            Product.objects.create(name=name, description=description, category=category, brand=brand)
         return redirect('add_product_page')
     else:
         return redirect('add_product_page')
